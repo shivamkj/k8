@@ -21,4 +21,4 @@ spec:
   ports:
     - port: 8000
       targetPort: 80
-      nodePort: 32100 # range (30000 - 32767)
+      nodePort: 30007 # range (30000 - 32767)

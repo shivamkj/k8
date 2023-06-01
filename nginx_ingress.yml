@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-pod
+  labels:
+    type: reverse-proxy
+spec:
+  # tls:
+  #   - secretName: shivamnginx-com
+  #     hosts:
+  #       - shivamnginx.com
+  rules:
+    - host: shivamnginx.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-service2
+                port:
+                  number: 8000
