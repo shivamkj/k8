@@ -1,22 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-pod
+  name: nginx-ingress
+  # annotations:
+    # kubernetes.io/ingress.class: 'nginx'
   labels:
     type: reverse-proxy
 spec:
+  ingressClassName: nginx  # Either this or above annotation
   # tls:
   #   - secretName: shivamnginx-com
   #     hosts:
   #       - shivamnginx.com
   rules:
-    - host: shivamnginx.com
+    - host: k8.shivamjha.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: nginx-service2
+                name: nginx-service
                 port:
                   number: 8000
