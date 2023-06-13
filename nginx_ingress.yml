@@ -2,16 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
-  # annotations:
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-cert"
     # kubernetes.io/ingress.class: 'nginx'
   labels:
     type: reverse-proxy
 spec:
-  ingressClassName: nginx  # Either this or above annotation
-  # tls:
-  #   - secretName: shivamnginx-com
-  #     hosts:
-  #       - shivamnginx.com
+  ingressClassName: nginx # Either this or above ingress.class annotation
+  tls:
+    - secretName: cert-tls
+      hosts:
+        - k8.shivamjha.com
   rules:
     - host: k8.shivamjha.com
       http:
