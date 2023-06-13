@@ -1,0 +1,14 @@
+kind: HTTPScaledObject
+apiVersion: http.keda.sh/v1alpha1
+metadata:
+   name: podinfo
+spec:
+   host: k8.shivamjha.com
+   targetPendingRequests: 100
+   scaleTargetRef:
+       deployment: hello-k8-deployment
+       service: nginx-service
+       port: 8000 # Service Port
+   replicas:
+       min: 0
+       max: 2
