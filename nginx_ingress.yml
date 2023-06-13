@@ -21,6 +21,11 @@ spec:
             pathType: Prefix
             backend:
               service:
+              # For use with Keda Auto HTTP based Scaler
+                # name: keda-add-ons-http-interceptor-proxy
+                # port:
+                #   number: 8080
+              # For normal use with Service
                 name: nginx-service
                 port:
                   number: 8000
