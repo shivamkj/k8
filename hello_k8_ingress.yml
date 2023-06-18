@@ -26,6 +26,6 @@ spec:
                 # port:
                 #   number: 8080
               # For normal use with Service
-                name: nginx-service
+                name: hello-k8-service
                 port:
                   number: 8000
