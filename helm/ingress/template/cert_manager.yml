@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-cert-manager
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: cert-manager
+    repoURL: "https://charts.jetstack.io"
+    targetRevision: 1.12.2
+    helm:
+      valueFiles:
+        - values-production.yaml
+      releaseName: cert-manager
+      parameters:
+        - name: installCRDs
+          value: "true"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: cert-manager
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
