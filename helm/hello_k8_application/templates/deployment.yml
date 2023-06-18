@@ -22,4 +22,4 @@ spec:
             - containerPort: 8080
           env:
             - name: MESSAGE
-              value: Hello from 1st Deployment 2
+              value: Hello from 1st Deployment 3
