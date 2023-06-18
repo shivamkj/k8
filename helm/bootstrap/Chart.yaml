@@ -1,6 +1,6 @@
 apiVersion: v2
 name: bootstrap
-description: Bootstrap everything based ArgoCD App Of Apps Pattern
+description: Bootstrap everything based ArgoCD App Of Apps Pattern, all Helm charts are defined here
 type: application
 version: 0.0.1
 appVersion: "0.0.1"
