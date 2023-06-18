@@ -14,8 +14,6 @@ spec:
     repoURL: "https://charts.jetstack.io"
     targetRevision: 1.12.2
     helm:
-      valueFiles:
-        - values-production.yaml
       releaseName: cert-manager
       parameters:
         - name: installCRDs
