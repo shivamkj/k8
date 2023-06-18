@@ -1,6 +1,0 @@
-apiVersion: v2
-name: hello-k8-helm
-description: Deploys Hello Kubernetes Application (contains 1 Deployment & 1 ClusterIP Service)
-type: application
-version: 0.0.1
-appVersion: "0.0.1"
