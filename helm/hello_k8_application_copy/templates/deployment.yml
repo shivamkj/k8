@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-k8-deployment_1
+  name: hello-k8-deployment-1
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
