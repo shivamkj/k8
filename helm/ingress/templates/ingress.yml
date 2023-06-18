@@ -37,11 +37,11 @@ metadata:
     type: reverse-proxy
 spec:
   tls:
-    - secretName: cert-tls
+    - secretName: cert-tls-2
       hosts:
-        - k8.shivamjha.com
+        - k9.shivamjha.com
   rules:
-    - host: k8.shivamjha.com
+    - host: k9.shivamjha.com
       http:
         paths:
           - path: /
