@@ -2,26 +2,25 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
-  namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cert"
     kubernetes.io/ingress.class: "nginx"
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "3"
   labels:
     type: reverse-proxy
 spec:
   tls:
     - secretName: cert-tls
       hosts:
-        - "argocd.shivamjha.com"
+        - "k8.shivamjha.com"
   rules:
-    - host: argocd.shivamjha.com
+    - host: k8.shivamjha.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: argocd-server
+                name: hello-k8-service
                 port:
-                  number: 80
+                  number: 8000
