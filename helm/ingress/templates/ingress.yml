@@ -12,8 +12,7 @@ spec:
   tls:
     - secretName: cert-tls
       hosts:
-        - k8.shivamjha.com
-        - argocd.shivamjha.com
+        - "*.shivamjha.com"
   rules:
     - host: k8.shivamjha.com
       http:
