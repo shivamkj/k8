@@ -16,3 +16,12 @@ spec:
       - http01:
           ingress:
             ingressClassName: nginx
+      # - dns01:
+      #   cloudflare:
+      #     email: my_cloudflare_email@mydom.com
+      #     apiTokenSecretRef:
+      #       name: cloudflare-api-token
+      #       key: token-secret
+      # selector:
+      #   dnsZones:
+      #   - '*.shivamjha.com'
