@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-config
+  name: shared
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 spec:
   destination:
-    namespace: argocd
+    namespace: shared
     server: https://kubernetes.default.svc
   project: default
   source:
