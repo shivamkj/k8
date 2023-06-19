@@ -16,7 +16,7 @@ spec:
           cloudflare:
             email: info@shivamjha.com
             apiTokenSecretRef:
-              name: cloudflare-api-token-secret
+              name: cloudflare-api-token
               key: token-secret
         selector:
           dnsZones:
