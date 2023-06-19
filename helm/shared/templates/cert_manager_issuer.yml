@@ -13,11 +13,11 @@ spec:
       name: letsencrypt-key
     solvers:
       - dns01:
-        cloudflare:
-          email: info@shivamjha.com
-          apiTokenSecretRef:
-            name: cloudflare-api-token
-            key: token-secret
-      selector:
-        dnsZones:
-        - '*.shivamjha.com'
+          cloudflare:
+            email: info@shivamjha.com
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: token-secret
+        selector:
+          dnsZones:
+            - "*shivamjha.com"
