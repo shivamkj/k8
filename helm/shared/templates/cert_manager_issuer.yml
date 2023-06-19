@@ -20,4 +20,4 @@ spec:
               key: token-secret
         selector:
           dnsZones:
-            - "*shivamjha.com"
+            - "shivamjha.com"
