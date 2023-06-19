@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shivamkj/k8
-    path: helm/ingress
+    path: helm/shared
     targetRevision: HEAD
   syncPolicy:
     automated:
