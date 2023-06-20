@@ -23,7 +23,7 @@ spec:
           helm:
               {{ if $app.valueFile }}
               valueFiles:
-                  - $values/{{ $app.valueFile.repoURL }}.yaml
+                  - $values{{ $app.valueFile.path }}
               {{ end }}
               # {{ if $app.parameters }}
               # parameters:
@@ -33,9 +33,9 @@ spec:
               #     {{ end }}
               # {{ end }}
         {{ if $app.valueFile }}
-        - repoURL: 'https://git.example.gom/org/value-files.git'
+        - repoURL: {{ $app.valueFile.repoURL }}
           targetRevision: HEAD
-          ref: {{ $app.valueFile.repoURL }}
+          ref: values
         {{ end }}
     destination:
         namespace: {{ $app.namespace }}
