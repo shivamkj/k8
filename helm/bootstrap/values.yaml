@@ -1,10 +1,12 @@
 helmCharts:
+## https://artifacthub.io/packages/helm/cert-manager/cert-manager
   - name: cert-manager-helm
     namespace: cert-manager
     chart: cert-manager
     repoURL: "https://charts.jetstack.io"
-    version: "1.12.1"
+    version: "v1.12.2"
     valueFiles: "./../values/cert_manager_value"
+## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
   - name: ingress-nginx-helm
     namespace: ingress-nginx
     chart: ingress-nginx
