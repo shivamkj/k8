@@ -6,6 +6,7 @@ metadata:
     name: {{ $app.name }}-ingress
     namespace: {{ $app.name }}
     annotations:
+        argocd.argoproj.io/sync-wave: {{ $i | quote }}
         {{ toYaml $.Values.ingressConfig.annotations | nindent 8 }}
 spec:
     tls:
