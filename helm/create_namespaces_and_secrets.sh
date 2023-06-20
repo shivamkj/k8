@@ -8,10 +8,8 @@ if [[ -z "$SECRET_FILE" || -z "$SOPS_AGE_KEY_FILE" ]]; then
     exit 1
 fi
 
-sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $SECRET_FILE
-
 # Read and parse the JSON file
-json_data=$(cat "$SECRET_FILE")
+json_data=$(sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") $SECRET_FILE)
 
 # Extract secret information from the JSON data
 secrets=$(echo "$json_data" | jq -r '.secrets[] | @base64')
@@ -58,5 +56,3 @@ for secret in $secrets; do
         done
     done
 done
-
-sops --encrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $SECRET_FILE
