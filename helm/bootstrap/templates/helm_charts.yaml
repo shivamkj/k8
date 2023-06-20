@@ -11,27 +11,32 @@ metadata:
         - resources-finalizer.argocd.argoproj.io
 spec:
     project: default
-    source:
-        {{ if $app.chart }}
-        chart: {{ $app.chart }}
+    sources:
+        - repoURL: {{ $app.repoURL }}
+          {{ if $app.chart }}
+          chart: {{ $app.chart }}
+          {{ end }}
+          {{ if $app.path }}
+          path: {{ $app.path }}
+          {{ end }}
+          targetRevision: {{ $app.version | default "HEAD"  }}
+          helm:
+              {{ if $app.valueFile }}
+              valueFiles:
+                  - $values/{{ $app.valueFile.repoURL }}.yaml
+              {{ end }}
+              # {{ if $app.parameters }}
+              # parameters:
+              #     {{ range $key, $val  := $app.parameters }}
+              #         - name : {{ $key }}
+              #           value: "{{ $val }}"  
+              #     {{ end }}
+              # {{ end }}
+        {{ if $app.valueFile }}
+        - repoURL: 'https://git.example.gom/org/value-files.git'
+          targetRevision: HEAD
+          ref: {{ $app.valueFile.repoURL }}
         {{ end }}
-        {{ if $app.path }}
-        path: {{ $app.path }}
-        {{ end }}
-        repoURL: {{ $app.repoURL }}
-        targetRevision: {{ $app.version | default "HEAD"  }}
-        helm:
-            {{ if $app.valueFiles }}
-             valueFiles:
-                - {{ $app.valueFiles }}.yaml
-            {{ end }}
-            # {{ if $app.parameters }}
-            # parameters:
-            #     {{ range $key, $val  := $app.parameters }}
-            #         - name : {{ $key }}
-            #           value: "{{ $val }}"  
-            #     {{ end }}
-            # {{ end }}
     destination:
         namespace: {{ $app.namespace }}
         server: "https://kubernetes.default.svc"

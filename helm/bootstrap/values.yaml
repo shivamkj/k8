@@ -5,7 +5,9 @@ helmCharts:
     chart: cert-manager
     repoURL: "https://charts.jetstack.io"
     version: "v1.12.2"
-    valueFiles: "./values/cert_manager_value"
+    valueFile:
+      repoURL: "https://github.com/shivamkj/k8"
+      path: "helm/bootstrap/values/cert_manager_value.yaml"
 ## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
   - name: ingress-nginx-helm
     namespace: ingress-nginx
