@@ -13,11 +13,6 @@ strategy:
   #   maxSurge: 0
   #   maxUnavailable: 1
 
-# This namespace allows you to define where the services will be installed into
-# if not set then they will use the namespace of the release
-# This is helpful when installing cert manager as a chart dependency (sub chart)
-namespace: "helm-cert-manager"
-
 resources:
   {}
   # requests:
