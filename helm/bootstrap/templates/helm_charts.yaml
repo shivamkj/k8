@@ -21,13 +21,17 @@ spec:
         repoURL: {{ $app.repoURL }}
         targetRevision: {{ $app.version | default "HEAD"  }}
         helm:
-            {{ if $app.parameters }}
-            parameters:
-                {{ range $key, $val  := $app.parameters }}
-                    - name : {{ $key }}
-                      value: "{{ $val }}"  
-                {{ end }}
+            {{ if $app.valueFiles }}
+             valueFiles:
+                - {{ $app.valueFiles }}.yaml
             {{ end }}
+            # {{ if $app.parameters }}
+            # parameters:
+            #     {{ range $key, $val  := $app.parameters }}
+            #         - name : {{ $key }}
+            #           value: "{{ $val }}"  
+            #     {{ end }}
+            # {{ end }}
     destination:
         namespace: {{ $app.namespace }}
         server: "https://kubernetes.default.svc"
