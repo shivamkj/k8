@@ -13,7 +13,7 @@ helmCharts:
     version: "v4.7.0"
   - name: hello-k8-app
     namespace: hello-k8
-    path: "helm/hello_k8_application"
+    path: "helm/applications"
     repoURL: "https://github.com/shivamkj/k8"
   - name: shared-config
     namespace: shared
