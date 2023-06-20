@@ -4,8 +4,7 @@ helmCharts:
     chart: cert-manager
     repoURL: "https://charts.jetstack.io"
     version: "1.12.1"
-    parameters:
-      installCRDs: "true"
+    valueFiles: "./../values/cert_manager_value"
   - name: ingress-nginx-helm
     namespace: ingress-nginx
     chart: ingress-nginx
