@@ -6,7 +6,7 @@ metadata:
     name: {{ $app.name }}-deployment
     namespace: {{ $app.name }}
     annotations:
-        argocd.argoproj.io/sync-wave: {{ $i }}
+        argocd.argoproj.io/sync-wave: {{ $i | quote }}
 spec:
     replicas: {{ $app.replicas }}
     selector:

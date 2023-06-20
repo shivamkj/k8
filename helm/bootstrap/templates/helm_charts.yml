@@ -6,7 +6,7 @@ metadata:
     name: {{ $app.name }}
     namespace: argocd
     annotations:
-        argocd.argoproj.io/sync-wave: "{{ $i }}"
+        argocd.argoproj.io/sync-wave: {{ $i | quote }}
     finalizers:
         - resources-finalizer.argocd.argoproj.io
 spec:
