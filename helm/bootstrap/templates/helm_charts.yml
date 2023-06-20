@@ -25,7 +25,7 @@ spec:
             parameters:
                 {{ range $key, $val  := $app.parameters }}
                     - name : {{ $key }}
-                      value: {{ $val }}  
+                      value: "{{ $val }}"  
                 {{ end }}
             {{ end }}
     destination:
