@@ -5,7 +5,7 @@ helmCharts:
     repoURL: "https://charts.jetstack.io"
     version: "1.12.1"
     parameters:
-      installCRDs: true
+      installCRDs: "true"
   - name: ingress-nginx-helm
     namespace: ingress-nginx
     chart: ingress-nginx
