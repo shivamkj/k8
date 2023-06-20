@@ -10,7 +10,7 @@ metadata:
     type: reverse-proxy
 spec:
   tls:
-    - secretName: cert-tls-1
+    - secretName: cert-tls
       hosts:
         - "k8.shivamjha.com"
   rules:
