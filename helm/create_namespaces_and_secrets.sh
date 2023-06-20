@@ -8,12 +8,10 @@ if [[ -z "$SECRET_FILE" || -z "$SOPS_AGE_KEY_FILE" ]]; then
     exit 1
 fi
 
-json_file=$SECRET_FILE
-
-sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $json_file
+sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $SECRET_FILE
 
 # Read and parse the JSON file
-json_data=$(cat "$json_file")
+json_data=$(cat "$SECRET_FILE")
 
 # Extract secret information from the JSON data
 secrets=$(echo "$json_data" | jq -r '.secrets[] | @base64')
@@ -39,13 +37,13 @@ for secret in $secrets; do
             
             if [[ -z "$existing_secret" ]]; then
                 # Secret doesn't exist, create it
-                value=$(echo "$data" | jq -r ".$key")
+                value=$(echo "$data" | jq -r ".\"$key\"")
                 kubectl create secret generic "$name" --from-literal="$key"="$value" -n "$namespace"
             else
                 # Secret exists, check if it has changed
-                encoded_data=$(echo "$existing_secret" | jq -r ".data.$key")
+                encoded_data=$(echo "$existing_secret" | jq -r ".data.\"$key\"")
                 existing_data=$(echo "$encoded_data" | base64 --decode)
-                passed_data=$(echo "$data" | jq -r ".$key")
+                passed_data=$(echo "$data" | jq -r ".\"$key\"")
                 
                 if [[ "$existing_data" != "$passed_data" ]]; then
                     # Secret has changed, delete old one and replace it with new one
@@ -61,4 +59,4 @@ for secret in $secrets; do
     done
 done
 
-sops --encrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $json_file
+sops --encrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $SECRET_FILE
