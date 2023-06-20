@@ -6,11 +6,11 @@ applications:
     host: k9.shivamjha.com
     env:
       MESSAGE: "Hello from Helm"
-  - name: metabase
-    imageName: "metabase/metabase:v0.46.5"
-    containerPort: 3000
-    replicas: 1
-    host: metabase.shivamjha.com
+  # - name: metabase
+  #   imageName: "metabase/metabase:v0.46.5"
+  #   containerPort: 3000
+  #   replicas: 1
+  #   host: metabase.shivamjha.com
 
 
 ingressConfig:
