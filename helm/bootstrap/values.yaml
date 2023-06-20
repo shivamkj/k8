@@ -15,7 +15,7 @@ helmCharts:
     repoURL: "https://kubernetes.github.io/ingress-nginx"
     version: "v4.7.0"
   - name: applications
-    namespace: hello-k8
+    namespace: applications
     path: "helm/applications"
     repoURL: "https://github.com/shivamkj/k8"
   - name: shared-config
