@@ -1,0 +1,40 @@
+{{ range $i, $app  := .Values.helmCharts }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: {{ $app.name }}
+    namespace: argocd
+    annotations:
+        argocd.argoproj.io/sync-wave: "{{ $i }}"
+    finalizers:
+        - resources-finalizer.argocd.argoproj.io
+spec:
+    project: default
+    source:
+        {{ if $app.chart }}
+        chart: {{ $app.chart }}
+        {{ end }}
+        {{ if $app.path }}
+        path: {{ $app.path }}
+        {{ end }}
+        repoURL: {{ $app.repoURL }}
+        targetRevision: {{ $app.version | default "HEAD"  }}
+        helm:
+            {{ if $app.parameters }}
+            parameters:
+                {{ range $key, $val  := $app.parameters }}
+                    - name : {{ $key }}
+                      value: {{ $val }}  
+                {{ end }}
+            {{ end }}
+    destination:
+        namespace: {{ $app.namespace }}
+        server: "https://kubernetes.default.svc"
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+{{ end }}
