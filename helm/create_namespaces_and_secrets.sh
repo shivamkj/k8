@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Required to Install jq & ggrep: brew install jq & brew install ggrep
+
 # Check environment variables are present
 if [[ -z "$SECRET_FILE" || -z "$SOPS_AGE_KEY_FILE" ]]; then
     echo "Must provide required variables in environment" 1>&2
@@ -10,7 +12,6 @@ json_file=$SECRET_FILE
 
 sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE | ggrep -oP "public key: \K(.*)") -i $json_file
 
-# Install JQ: brew install jq
 # Read and parse the JSON file
 json_data=$(cat "$json_file")
 
