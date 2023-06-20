@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   destination:
-    namespace: ingress-nginx
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
