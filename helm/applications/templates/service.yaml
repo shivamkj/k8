@@ -1,0 +1,17 @@
+{{ range $i, $app  := .Values.applications }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $app.name }}-service
+  namespace: {{ $app.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    app: {{ $app.name }}-app
+  type: ClusterIP
+  ports:
+    - port: {{ add $i 1000 }}
+      targetPort: {{ $app.containerPort }}
+{{ end }}
