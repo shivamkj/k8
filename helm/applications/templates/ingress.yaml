@@ -9,10 +9,10 @@ metadata:
         argocd.argoproj.io/sync-wave: {{ $i | quote }}
         {{ toYaml $.Values.ingressConfig.annotations | nindent 8 }}
 spec:
-    # tls:
-    #     - secretName: {{ $.Values.ingressConfig.tlsSecretName }}
-    #       hosts:
-    #           - {{ $app.host }}
+    tls:
+        - secretName: {{ $.Values.ingressConfig.tlsSecretName }}
+          hosts:
+              - {{ $app.host }}
     rules:
         - host: {{ $app.host }}
           http:
