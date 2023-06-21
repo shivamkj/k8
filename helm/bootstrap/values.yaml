@@ -1,13 +1,13 @@
 helmCharts:
 ## https://artifacthub.io/packages/helm/cert-manager/cert-manager
-  - name: cert-manager-helm
-    namespace: cert-manager
-    chart: cert-manager
-    repoURL: "https://charts.jetstack.io"
-    version: "1.12.2"
-    valueFile:
-      repoURL: "https://github.com/shivamkj/k8"
-      path: "/helm/bootstrap/values/cert_manager_value.yaml"
+  # - name: cert-manager-helm
+  #   namespace: cert-manager
+  #   chart: cert-manager
+  #   repoURL: "https://charts.jetstack.io"
+  #   version: "1.12.2"
+  #   valueFile:
+  #     repoURL: "https://github.com/shivamkj/k8"
+  #     path: "/helm/bootstrap/values/cert_manager_value.yaml"
 ## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
   - name: ingress-nginx-helm
     namespace: ingress-nginx
@@ -18,7 +18,7 @@ helmCharts:
     namespace: applications
     path: "helm/applications"
     repoURL: "https://github.com/shivamkj/k8"
-  - name: shared-config
-    namespace: shared
-    path: "helm/shared"
-    repoURL: "https://github.com/shivamkj/k8"
+  # - name: shared-config
+  #   namespace: shared
+  #   path: "helm/shared"
+  #   repoURL: "https://github.com/shivamkj/k8"
