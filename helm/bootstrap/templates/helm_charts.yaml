@@ -3,47 +3,47 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-    name: {{ $app.name }}
-    namespace: argocd
-    annotations:
-        argocd.argoproj.io/sync-wave: {{ $i | quote }}
-    finalizers:
-        - resources-finalizer.argocd.argoproj.io
+  name: {{ $app.name }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $i | quote }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-    project: default
-    sources:
-        - repoURL: {{ $app.repoURL }}
-          {{ if $app.chart }}
-          chart: {{ $app.chart }}
-          {{ end }}
-          {{ if $app.path }}
-          path: {{ $app.path }}
-          {{ end }}
-          targetRevision: {{ $app.version | default "HEAD"  }}
-          helm:
-              {{ if $app.valueFile }}
-              valueFiles:
-                  - $values{{ $app.valueFile.path }}
-              {{ end }}
-              # {{ if $app.parameters }}
-              # parameters:
-              #     {{ range $key, $val  := $app.parameters }}
-              #         - name : {{ $key }}
-              #           value: "{{ $val }}"  
-              #     {{ end }}
-              # {{ end }}
+  project: default
+  sources:
+    - repoURL: {{ $app.repoURL }}
+      {{ if $app.chart }}
+      chart: {{ $app.chart }}
+      {{ end }}
+      {{ if $app.path }}
+      path: {{ $app.path }}
+      {{ end }}
+      targetRevision: {{ $app.version | default "HEAD"  }}
+      helm:
         {{ if $app.valueFile }}
-        - repoURL: {{ $app.valueFile.repoURL }}
-          targetRevision: HEAD
-          ref: values
+        valueFiles:
+          - $values{{ $app.valueFile.path }}
         {{ end }}
-    destination:
-        namespace: {{ $app.namespace }}
-        server: "https://kubernetes.default.svc"
-    syncPolicy:
-        automated:
-            prune: true
-            selfHeal: true
-        syncOptions:
-            - CreateNamespace=true
+        # {{ if $app.parameters }}
+        # parameters:
+        #    {{ range $key, $val  := $app.parameters }}
+        #       - name : {{ $key }}
+        #         value: "{{ $val }}"  
+        #    {{ end }}
+        # {{ end }}
+    {{ if $app.valueFile }}
+    - repoURL: {{ $app.valueFile.repoURL }}
+      targetRevision: HEAD
+      ref: values
+    {{ end }}
+  destination:
+    namespace: {{ $app.namespace }}
+    server: "https://kubernetes.default.svc"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 {{ end }}
