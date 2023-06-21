@@ -13,9 +13,9 @@ spec:
   tls:
     - secretName: cert-tls
       hosts:
-        - "argocd.shivamjha.com"
+        - {{ .Values.argocdDomain }}
   rules:
-    - host: argocd.shivamjha.com
+    - host: {{ .Values.argocdDomain }}
       http:
         paths:
           - path: /
