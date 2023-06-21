@@ -4,7 +4,7 @@ helmCharts:
     namespace: cert-manager
     chart: cert-manager
     repoURL: "https://charts.jetstack.io"
-    version: "v1.12.2"
+    version: "1.12.2"
     valueFile:
       repoURL: "https://github.com/shivamkj/k8"
       path: "/helm/bootstrap/values/cert_manager_value.yaml"
