@@ -21,7 +21,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-            name: {{ $app.name }}-service
-            port:
-              number: {{ add $i 1000 }}
+              name: {{ $app.name }}-service
+              port:
+                number: {{ add $i 1000 }}
 {{ end }}
