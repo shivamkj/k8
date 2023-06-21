@@ -14,10 +14,10 @@ helmCharts:
     chart: ingress-nginx
     repoURL: "https://kubernetes.github.io/ingress-nginx"
     version: "v4.7.0"
-  # - name: applications
-  #   namespace: applications
-  #   path: "helm/applications"
-  #   repoURL: "https://github.com/shivamkj/k8"
+  - name: applications
+    namespace: default
+    path: "helm/applications"
+    repoURL: "https://github.com/shivamkj/k8"
   # - name: shared-config
   #   namespace: shared
   #   path: "helm/shared"
