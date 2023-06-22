@@ -1,3 +1,13 @@
+global:
+  env:
+  branch:
+  ingressConfig:
+    ingress:
+    annotations:
+      cert-manager.io/cluster-issuer:
+      argocd.argoproj.io/sync-wave:
+    tlsSecretName:
+
 applications:
   - name: hello-k8
     imageName: "paulbouwer/hello-kubernetes:1.10.1"

@@ -1,4 +1,5 @@
 {{ range $i, $app  := .Values.helmCharts }}
+{{ if $app.enabled }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -19,15 +20,18 @@ spec:
       {{ if $app.path }}
       path: {{ $app.path }}
       {{ end }}
-      targetRevision: {{ $app.version | default "HEAD"  }}
+      targetRevision: {{ $app.version | $app.branch | default "HEAD"  }}
       helm:
         values: |
           global:
             {{ toYaml $.Values.global | nindent 12 }}
-        {{ if $app.valueFile }}
         valueFiles:
-          - $values{{ $app.valueFile.path }}
-        {{ end }}
+          {{ if eq $.Values.global.env "dev" }}
+            - values.dev.yaml
+          {{ end }}
+          {{ if $app.valueFile }}
+            - $values{{ $app.valueFile.path }}
+          {{ end }}
         # {{ if $app.parameters }}
         # parameters:
         #    {{ range $key, $val  := $app.parameters }}
@@ -37,7 +41,7 @@ spec:
         # {{ end }}
     {{ if $app.valueFile }}
     - repoURL: {{ $app.valueFile.repoURL }}
-      targetRevision: HEAD
+      targetRevision: {{ $.Values.global.env }}
       ref: values
     {{ end }}
   destination:
@@ -49,4 +53,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+{{ end }}
 {{ end }}

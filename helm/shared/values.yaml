@@ -1,1 +1,11 @@
+global:
+  env:
+  branch:
+  ingressConfig:
+    ingress:
+    annotations:
+      cert-manager.io/cluster-issuer:
+      argocd.argoproj.io/sync-wave:
+    tlsSecretName:
+
 argocdDomain: "argocd2.shivamjha.com"
