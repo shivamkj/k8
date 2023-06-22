@@ -15,7 +15,7 @@ helmCharts:
   #   repoURL: "https://kubernetes.github.io/ingress-nginx"
   #   version: "v4.7.0"
   # https://artifacthub.io/packages/helm/haproxytech/kubernetes-ingress
-  - name: haproxytech-helm
+  - name: haproxy-helm
     namespace: haproxy
     chart: kubernetes-ingress
     repoURL: "https://haproxytech.github.io/helm-charts"
