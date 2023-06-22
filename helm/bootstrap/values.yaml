@@ -1,6 +1,6 @@
 global:
   ingressConfig:
-    ingress: "ingress"
+    ingress: "nginx"
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-cert"
       argocd.argoproj.io/sync-wave: "3"
