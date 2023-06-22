@@ -21,6 +21,9 @@ spec:
       {{ end }}
       targetRevision: {{ $app.version | default "HEAD"  }}
       helm:
+        values: |
+          global:
+            {{ toYaml $.Values.global | nindent 12 }}
         {{ if $app.valueFile }}
         valueFiles:
           - $values{{ $app.valueFile.path }}
