@@ -1,3 +1,13 @@
 applications:
-  - name: hello-k8
+  hello-k8:
+    replicas: 1
     host: k3-dev.shivamjha.com
+    env:
+      MESSAGE: "Hello from Helm - DEV"
+  # metabase:
+  #   imageName: "metabase/metabase:v0.46.5"
+  #   containerPort: 3000
+  #   replicas: 1
+  #   host: metabase.shivamjha.com
+  #   syncWave: 2
+  #   port: 1001
