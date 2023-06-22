@@ -16,6 +16,5 @@ ingressConfig:
   ingress: "haproxy"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cert"
-    kubernetes.io/ingress.class: "haproxy"
     argocd.argoproj.io/sync-wave: "3"
   tlsSecretName: "cert-tls"
