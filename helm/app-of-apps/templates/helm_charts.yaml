@@ -43,7 +43,7 @@ spec:
         # {{ end }}
     {{ if $value.valueFile }}
     - repoURL: {{ $value.valueFile.repoURL }}
-      targetRevision: {{ $.Values.global.env }}
+      targetRevision: {{ $.Values.global.branch }}
       ref: configRepo
     {{ end }}
   destination:
