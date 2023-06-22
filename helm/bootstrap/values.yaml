@@ -17,7 +17,7 @@ helmCharts:
   # https://artifacthub.io/packages/helm/haproxytech/kubernetes-ingress
   - name: haproxytech-helm
     namespace: haproxy
-    chart: haproxytech
+    chart: kubernetes-ingress
     repoURL: "https://haproxytech.github.io/helm-charts"
     version: "1.30.6"
     valueFile:
