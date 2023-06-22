@@ -24,4 +24,4 @@ controller:
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
   service:
     enabled: true # set to false when controller.kind is 'DaemonSet' and controller.daemonset.useHostPorts is true
-    type: ClusterIP # can be 'ClusterIP', 'NodePort' or 'LoadBalancer'
+    type: LoadBalancer # can be 'ClusterIP', 'NodePort' or 'LoadBalancer'
