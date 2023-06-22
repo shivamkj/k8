@@ -12,10 +12,10 @@ applications:
   #   replicas: 1
   #   host: metabase.shivamjha.com
 
-
 ingressConfig:
+  ingress: "haproxy"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cert"
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "haproxy"
     argocd.argoproj.io/sync-wave: "3"
   tlsSecretName: "cert-tls"
