@@ -5,11 +5,11 @@ metadata:
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cert"
-    kubernetes.io/ingress.class: "nginx"
     argocd.argoproj.io/sync-wave: "2"
   labels:
     type: reverse-proxy
 spec:
+  ingressClassName: "haproxy"
   tls:
     - secretName: cert-tls
       hosts:
