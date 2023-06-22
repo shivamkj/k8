@@ -3,7 +3,7 @@ applications:
     imageName: "paulbouwer/hello-kubernetes:1.10.1"
     containerPort: 8080
     replicas: 2
-    host: k10.shivamjha.com
+    host: k3.shivamjha.com
     env:
       MESSAGE: "Hello from Helm"
   # - name: metabase
