@@ -16,7 +16,7 @@ applications:
     replicas: 2
     host: k3.shivamjha.com
     env:
-      MESSAGE: "Hello from Helm"
+      MESSAGE: "Hello from Helm - Prod"
     syncWave: 1
     port: 1000
   # metabase:
