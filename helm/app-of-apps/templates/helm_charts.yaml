@@ -27,7 +27,8 @@ spec:
           global:
             {{ toYaml $.Values.global | nindent 12 }}
         valueFiles:
-          {{ if eq $.Values.global.env "dev" }}
+        # Include dev value if it our custom helm repo chart
+          {{ if and (eq $.Values.global.env "dev") ($value.chart) }} 
             - values.dev.yaml
           {{ end }}
           {{ if $value.valueFile }}
