@@ -1,4 +1,4 @@
-# Global value here is just for declaration so chart can be debugged in isolation, 
+# Global value here is just for declaration so chart can be debugged in isolation,
 # default global value will be set by parent chart and is initialised in bootstrap helm chart
 global:
   env:
@@ -7,7 +7,6 @@ global:
     ingress:
     annotations:
       cert-manager.io/cluster-issuer:
-      argocd.argoproj.io/sync-wave:
     tlsSecretName:
 
 applications:
