@@ -10,7 +10,7 @@ spec:
   source:
     path: helm/app-of-apps
     repoURL: git@github.com:shivamkj/k8.git
-    targetRevision: HEAD
+    targetRevision: {{ .Values.global.branch }}
     helm:
       values: |
           {{ toYaml .Values | nindent 10 }}

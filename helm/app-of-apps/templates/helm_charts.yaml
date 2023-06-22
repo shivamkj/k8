@@ -16,11 +16,12 @@ spec:
     - repoURL: {{ $app.repoURL }}
       {{ if $app.chart }}
       chart: {{ $app.chart }}
+      targetRevision: {{ $app.version  }}
       {{ end }}
       {{ if $app.path }}
       path: {{ $app.path }}
+      targetRevision: {{ $.Values.global.branch  }}
       {{ end }}
-      targetRevision: {{ $app.version | $app.branch | default "HEAD"  }}
       helm:
         values: |
           global:
