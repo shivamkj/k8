@@ -1,11 +1,11 @@
 helmCharts:
-  - name: cert-manager-helm
+  cert-manager-helm:
     enabled: true
-  - name: ingress-nginx-helm
+  ingress-nginx-helm:
     enabled: false
-  - name: haproxy-helm
+  haproxy-helm:
     enabled: true
-  - name: applications
+  applications:
     enabled: true
-  - name: shared-config
+  shared-config:
     enabled: true

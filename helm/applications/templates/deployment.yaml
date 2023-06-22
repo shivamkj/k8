@@ -1,31 +1,31 @@
-{{ range $i, $app  := .Values.applications }}
+{{ range $name, $value  := .Values.applications }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $app.name }}-deployment
-  namespace: {{ $app.name }}
+  name: {{ $name }}-deployment
+  namespace: {{ $name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $i | quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave }}
 spec:
-  replicas: {{ $app.replicas }}
+  replicas: {{ $value.replicas }}
   selector:
     matchLabels:
-      app: {{ $app.name }}-app
+      app: {{ $name }}-app
   template:
     metadata:
-      name: {{ $app.name }}-pod
+      name: {{ $name }}-pod
       labels:
-        app: {{ $app.name }}-app
+        app: {{ $name }}-app
     spec:
       containers:
-        - name: {{ $app.name }}-container
-          image: {{ $app.imageName }}
+        - name: {{ $name }}-container
+          image: {{ $value.imageName }}
           ports:
-            - containerPort: {{ $app.containerPort }}
-          {{ if $app.env }}
+            - containerPort: {{ $value.containerPort }}
+          {{ if $value.env }}
           env:
-            {{ range $key, $val  := $app.env }}
+            {{ range $key, $val  := $value.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{ end }}

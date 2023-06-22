@@ -1,25 +1,25 @@
-{{ range $i, $app  := .Values.helmCharts }}
-{{ if $app.enabled }}
+{{ range $name, $value  := .Values.helmCharts }}
+{{ if $value.enabled }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $app.name }}
+  name: {{ $name }}
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $i | quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
-    - repoURL: {{ $app.repoURL }}
-      {{ if $app.chart }}
-      chart: {{ $app.chart }}
-      targetRevision: {{ $app.version  }}
+    - repoURL: {{ $value.repoURL }}
+      {{ if $value.chart }}
+      chart: {{ $value.chart }}
+      targetRevision: {{ $value.version  }}
       {{ end }}
-      {{ if $app.path }}
-      path: {{ $app.path }}
+      {{ if $value.path }}
+      path: {{ $value.path }}
       targetRevision: {{ $.Values.global.branch  }}
       {{ end }}
       helm:
@@ -30,23 +30,23 @@ spec:
           {{ if eq $.Values.global.env "dev" }}
             - values.dev.yaml
           {{ end }}
-          {{ if $app.valueFile }}
-            - $values{{ $app.valueFile.path }}
+          {{ if $value.valueFile }}
+            - $values{{ $value.valueFile.path }}
           {{ end }}
-        # {{ if $app.parameters }}
+        # {{ if $value.parameters }}
         # parameters:
-        #    {{ range $key, $val  := $app.parameters }}
+        #    {{ range $key, $val  := $value.parameters }}
         #       - name : {{ $key }}
         #         value: "{{ $val }}"  
         #    {{ end }}
         # {{ end }}
-    {{ if $app.valueFile }}
-    - repoURL: {{ $app.valueFile.repoURL }}
+    {{ if $value.valueFile }}
+    - repoURL: {{ $value.valueFile.repoURL }}
       targetRevision: {{ $.Values.global.env }}
       ref: values
     {{ end }}
   destination:
-    namespace: {{ $app.namespace }}
+    namespace: {{ $value.namespace }}
     server: "https://kubernetes.default.svc"
   syncPolicy:
     automated:

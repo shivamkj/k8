@@ -10,7 +10,7 @@ global:
 
 helmCharts:
   ## https://artifacthub.io/packages/helm/cert-manager/cert-manager
-  - name: cert-manager-helm
+  cert-manager-helm:
     namespace: cert-manager
     chart: cert-manager
     repoURL: "https://charts.jetstack.io"
@@ -18,16 +18,18 @@ helmCharts:
     valueFile:
       repoURL: "https://github.com/shivamkj/k8"
       path: "/helm/app-of-apps/values/cert_manager.yaml"
+    syncWave: 1
     enabled: true
   ## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
-  - name: ingress-nginx-helm
+  ingress-nginx-helm:
     namespace: ingress-nginx
     chart: ingress-nginx
     repoURL: "https://kubernetes.github.io/ingress-nginx"
     version: "4.7.0"
     enabled: true
+    syncWave: 2
   # https://artifacthub.io/packages/helm/haproxytech/kubernetes-ingress
-  - name: haproxy-helm
+  haproxy-helm:
     namespace: haproxy
     chart: kubernetes-ingress
     repoURL: "https://haproxytech.github.io/helm-charts"
@@ -36,13 +38,16 @@ helmCharts:
       repoURL: "https://github.com/shivamkj/k8"
       path: "/helm/app-of-apps/values/haproxy_ingress.yaml"
     enabled: false
-  - name: applications
-    namespace: default
-    path: "helm/applications"
-    repoURL: "https://github.com/shivamkj/k8"
-    enabled: true
-  - name: shared-config
+    syncWave: 2
+  shared-config:
     namespace: shared
     path: "helm/shared"
     repoURL: "https://github.com/shivamkj/k8"
     enabled: true
+    syncWave: 3
+  applications:
+    namespace: default
+    path: "helm/applications"
+    repoURL: "https://github.com/shivamkj/k8"
+    enabled: true
+    syncWave: 4
