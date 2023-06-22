@@ -6,7 +6,7 @@ metadata:
   name: {{ $name }}-ingress
   namespace: {{ $name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $name | quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | quote }}
     {{ toYaml $.Values.global.ingressConfig.annotations | nindent 4 }}
 spec:
   ingressClassName: {{ $.Values.global.ingressConfig.ingress }}

@@ -6,7 +6,7 @@ metadata:
   name: {{ $name }}-service
   namespace: {{ $name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $value.syncWave }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | quote }}
 spec:
   selector:
     app: {{ $name }}-app

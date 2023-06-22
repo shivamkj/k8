@@ -1,0 +1,83 @@
+---
+# Source: applications/templates/namespace.yml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hello-k8"
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+---
+# Source: applications/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-k8-service
+  namespace: hello-k8
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  selector:
+    app: hello-k8-app
+  type: ClusterIP
+  ports:
+    - port: 1000
+      targetPort: 8080
+---
+# Source: applications/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-k8-deployment
+  namespace: hello-k8
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-k8-app
+  template:
+    metadata:
+      name: hello-k8-pod
+      labels:
+        app: hello-k8-app
+    spec:
+      containers:
+        - name: hello-k8-container
+          image: paulbouwer/hello-kubernetes:1.10.1
+          ports:
+            - containerPort: 8080
+          
+          env:
+            
+            - name: MESSAGE
+              value: "Hello from Helm - DEV"
+---
+# Source: applications/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-k8-ingress
+  namespace: hello-k8
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    
+    argocd.argoproj.io/sync-wave: null
+    cert-manager.io/cluster-issuer: null
+spec:
+  ingressClassName: 
+  tls:
+    - secretName: 
+      hosts:
+        - k3-dev.shivamjha.com
+  rules:
+    - host: k3-dev.shivamjha.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: hello-k8-service
+              port:
+                number: 1000
