@@ -1,0 +1,48 @@
+global:
+  env:
+  branch:
+  ingressConfig:
+    ingress: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-cert"
+      argocd.argoproj.io/sync-wave: "3"
+    tlsSecretName: "cert-tls"
+
+helmCharts:
+  ## https://artifacthub.io/packages/helm/cert-manager/cert-manager
+  - name: cert-manager-helm
+    namespace: cert-manager
+    chart: cert-manager
+    repoURL: "https://charts.jetstack.io"
+    version: "1.12.2"
+    valueFile:
+      repoURL: "https://github.com/shivamkj/k8"
+      path: "/helm/app-of-apps/values/cert_manager.yaml"
+    enabled: true
+  ## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
+  - name: ingress-nginx-helm
+    namespace: ingress-nginx
+    chart: ingress-nginx
+    repoURL: "https://kubernetes.github.io/ingress-nginx"
+    version: "4.7.0"
+    enabled: true
+  # https://artifacthub.io/packages/helm/haproxytech/kubernetes-ingress
+  - name: haproxy-helm
+    namespace: haproxy
+    chart: kubernetes-ingress
+    repoURL: "https://haproxytech.github.io/helm-charts"
+    version: "1.30.6"
+    valueFile:
+      repoURL: "https://github.com/shivamkj/k8"
+      path: "/helm/app-of-apps/values/haproxy_ingress.yaml"
+    enabled: false
+  - name: applications
+    namespace: default
+    path: "helm/applications"
+    repoURL: "https://github.com/shivamkj/k8"
+    enabled: true
+  - name: shared-config
+    namespace: shared
+    path: "helm/shared"
+    repoURL: "https://github.com/shivamkj/k8"
+    enabled: true
