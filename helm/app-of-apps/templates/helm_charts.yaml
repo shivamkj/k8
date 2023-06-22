@@ -32,7 +32,7 @@ spec:
             - values.dev.yaml
           {{ end }}
           {{ if $value.valueFile }}
-            - $values{{ $value.valueFile.path }}
+            - $configRepo{{ $value.valueFile.path }}
           {{ end }}
         # {{ if $value.parameters }}
         # parameters:
@@ -44,7 +44,7 @@ spec:
     {{ if $value.valueFile }}
     - repoURL: {{ $value.valueFile.repoURL }}
       targetRevision: {{ $.Values.global.env }}
-      ref: values
+      ref: configRepo
     {{ end }}
   destination:
     namespace: {{ $value.namespace }}
