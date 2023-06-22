@@ -1,12 +1,14 @@
+# Global value here is just for declaration so chart can be debugged in isolation, 
+# default global value will be set by parent chart and is initialised in bootstrap helm chart
 global:
   env:
   branch:
   ingressConfig:
-    ingress: "nginx"
+    ingress:
     annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-cert"
-      argocd.argoproj.io/sync-wave: "3"
-    tlsSecretName: "cert-tls"
+      cert-manager.io/cluster-issuer:
+      argocd.argoproj.io/sync-wave:
+    tlsSecretName:
 
 helmCharts:
   ## https://artifacthub.io/packages/helm/cert-manager/cert-manager
