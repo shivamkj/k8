@@ -4,14 +4,11 @@ metadata:
   name: ingress-argocd
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-cert"
-    argocd.argoproj.io/sync-wave: "2"
-  labels:
-    type: reverse-proxy
+    {{ toYaml $.Values.global.ingressConfig.annotations | nindent 4 }}
 spec:
-  ingressClassName: "haproxy"
+  ingressClassName: {{ $.Values.global.ingressConfig.ingress }}
   tls:
-    - secretName: cert-tls
+    - secretName: {{ $.Values.global.ingressConfig.tlsSecretName }}
       hosts:
         - {{ .Values.argocdDomain }}
   rules:

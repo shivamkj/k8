@@ -11,10 +11,3 @@ applications:
   #   containerPort: 3000
   #   replicas: 1
   #   host: metabase.shivamjha.com
-
-ingressConfig:
-  ingress: "haproxy"
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-cert"
-    argocd.argoproj.io/sync-wave: "3"
-  tlsSecretName: "cert-tls"

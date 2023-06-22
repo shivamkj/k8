@@ -1,3 +1,11 @@
+global:
+  ingressConfig:
+    ingress: "haproxy"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-cert"
+      argocd.argoproj.io/sync-wave: "3"
+    tlsSecretName: "cert-tls"
+
 helmCharts:
   ## https://artifacthub.io/packages/helm/cert-manager/cert-manager
   - name: cert-manager-helm
