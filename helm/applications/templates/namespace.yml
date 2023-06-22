@@ -1,8 +1,8 @@
-{{ range $app  := .Values.applications }}
+{{ range $name, $_  := .Values.applications }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $app.name }}
+  name: {{ $name }}
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 {{ end }}

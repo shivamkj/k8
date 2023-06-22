@@ -1,17 +1,17 @@
-{{ range $i, $app  := .Values.applications }}
+{{ range $name, $value  := .Values.applications }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $app.name }}-service
-  namespace: {{ $app.name }}
+  name: {{ $name }}-service
+  namespace: {{ $name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $i | quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave }}
 spec:
   selector:
-    app: {{ $app.name }}-app
+    app: {{ $name }}-app
   type: ClusterIP
   ports:
-    - port: {{ add $i 1000 }}
-      targetPort: {{ $app.containerPort }}
+    - port: {{ $value.port }}
+      targetPort: {{ $value.containerPort }}
 {{ end }}

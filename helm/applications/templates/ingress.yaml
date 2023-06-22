@@ -1,28 +1,28 @@
-{{ range $i, $app  := .Values.applications }}
+{{ range $name, $value  := .Values.applications }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $app.name }}-ingress
-  namespace: {{ $app.name }}
+  name: {{ $name }}-ingress
+  namespace: {{ $name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $i | quote }}
+    argocd.argoproj.io/sync-wave: {{ $name | quote }}
     {{ toYaml $.Values.global.ingressConfig.annotations | nindent 4 }}
 spec:
   ingressClassName: {{ $.Values.global.ingressConfig.ingress }}
   tls:
     - secretName: {{ $.Values.global.ingressConfig.tlsSecretName }}
       hosts:
-        - {{ $app.host }}
+        - {{ $value.host }}
   rules:
-    - host: {{ $app.host }}
+    - host: {{ $value.host }}
       http:
         paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: {{ $app.name }}-service
+              name: {{ $name }}-service
               port:
-                number: {{ add $i 1000 }}
+                number: {{ add $name 1000 }}
 {{ end }}
