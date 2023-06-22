@@ -1,0 +1,27 @@
+controller:
+  name: controller
+  image:
+    repository: haproxytech/kubernetes-ingress # can be changed to use CE or EE Controller images
+    tag: "{{ .Chart.AppVersion }}"
+    pullPolicy: IfNotPresent
+
+  ## Deployment or DaemonSet pod mode
+  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+  kind: Deployment # can be 'Deployment' or 'DaemonSet'
+  replicaCount: 1
+
+  ## Ingress TLS secret, if it is enabled and secret is null then controller will use auto-generated secret, otherwise
+  ## secret needs to contain name of the Secret object which has been created manually
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+  defaultTLSSecret:
+    enabled: true
+    secretNamespace: "{{ .Release.Namespace }}"
+    secret: null
+
+  ## Controller Service configuration
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
+  service:
+    enabled: true # set to false when controller.kind is 'DaemonSet' and controller.daemonset.useHostPorts is true
+    type: ClusterIP # can be 'ClusterIP', 'NodePort' or 'LoadBalancer'
