@@ -3,7 +3,7 @@ applications:
     replicas: 1
     host: k3-dev.shivamjha.com
     env:
-      MESSAGE: "Hello from Helm - DEV"
+      MESSAGE: "Hello from Helm - DEV Testing"
   # metabase:
   #   imageName: "metabase/metabase:v0.46.5"
   #   containerPort: 3000
