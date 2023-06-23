@@ -5,7 +5,6 @@ metadata:
   namespace: container-registry
 data:
   htpasswd: |
-    shivam:$apr1$wt6S0vfY$XnjgFwsRisSTvXNWSzk.C.
-    shivam2:$apr1$YdwbGxuQ$8xdbdViIIpn2c3FowpS3g/
+    shivam:$2y$05$G7mlVPwTGmW38XmtVH5Rpe81nXXjHZdWPjOlXQwW1YIgrE3tH2Wp2
 
 ---
