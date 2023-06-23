@@ -1,5 +1,5 @@
 helmCharts:
-  ingress-nginx-helm:
-    enabled: false
   haproxy-helm:
     enabled: true
+  ingress-nginx-helm:
+    enabled: false
