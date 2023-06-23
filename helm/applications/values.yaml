@@ -20,12 +20,12 @@ applications:
     syncWave: 1
     port: 1000
   container-registry:
-    imageName: "paulbouwer/hello-kubernetes:1.10.1"
-    containerPort: 8080
-    replicas: 2
+    imageName: "registry:2.8.2"
+    containerPort: 5000
+    replicas: 1
     host: containers.shivamjha.com
     syncWave: 1
-    port: 5000
+    port: 1001
     env:
       REGISTRY_AUTH: "htpasswd"
       REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
@@ -36,15 +36,15 @@ applications:
       REGISTRY_STORAGE_S3_ACCESSKEY: s3-secret$access-key
       REGISTRY_STORAGE_S3_SECRETKEY: s3-secret$secret-key
     volumes:
-      - name: auth
-        configMap:
-          name: auth
-      - name: auth2
-        configMap:
-          name: auth2
+    - name: auth
+      configMap:
+        name: auth
+    - name: auth2
+      configMap:
+        name: auth2
     volumeMounts:
-      - name: auth
-        mountPath: /auth
+    - name: auth
+      mountPath: /auth
   # metabase:
   #   imageName: "metabase/metabase:v0.46.5"
   #   containerPort: 3000
