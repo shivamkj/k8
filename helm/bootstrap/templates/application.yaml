@@ -14,6 +14,10 @@ spec:
     helm:
       values: |
           {{ toYaml .Values | nindent 10 }}
+      valueFiles:
+        {{ if (eq .Values.global.env "dev") }} 
+          - values.dev.yaml
+        {{ end }}
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
