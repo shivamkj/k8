@@ -19,6 +19,32 @@ applications:
       MESSAGE: "Hello from Helm - Prod Environment"
     syncWave: 1
     port: 1000
+  container-registry:
+    imageName: "paulbouwer/hello-kubernetes:1.10.1"
+    containerPort: 8080
+    replicas: 2
+    host: k3.shivamjha.com
+    syncWave: 1
+    port: 5000
+    env:
+      REGISTRY_AUTH: "htpasswd"
+      REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_STORAGE: "s3"
+      REGISTRY_STORAGE_S3_BUCKET: "shivam-test-3"
+    secrets:
+      REGISTRY_STORAGE_S3_ACCESSKEY: s3-secret$access-key
+      REGISTRY_STORAGE_S3_SECRETKEY: s3-secret$secret-key
+    volumes:
+      - name: auth
+        configMap:
+          name: auth
+      - name: auth2
+        configMap:
+          name: auth2
+    volumeMounts:
+      - name: auth
+        mountPath: /auth
   # metabase:
   #   imageName: "metabase/metabase:v0.46.5"
   #   containerPort: 3000
