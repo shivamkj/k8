@@ -6,5 +6,5 @@ global:
     ingress: "nginx"
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-cert"
-      # ingress.kubernetes.io/force-ssl-redirect: "true"
+      ingress.kubernetes.io/force-ssl-redirect: "true"
     tlsSecretName: "cert-tls"

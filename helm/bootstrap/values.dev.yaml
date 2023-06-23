@@ -2,4 +2,4 @@ global:
   env: "dev"
   branch: "dev"
   ingressConfig:
-    ingress: "nginx"
+    ingress: "haproxy"
