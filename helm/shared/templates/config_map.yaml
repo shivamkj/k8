@@ -6,5 +6,5 @@ metadata:
 data:
   htpasswd: |
     shivam:$2y$05$G7mlVPwTGmW38XmtVH5Rpe81nXXjHZdWPjOlXQwW1YIgrE3tH2Wp2
-
+    shivammac:$2y$05$KZ48RFcICTkCPsTzFc.R9unZeZQ143Fgj07tC23FS.Q8rdeXpXV3C
 ---
