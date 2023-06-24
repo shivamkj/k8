@@ -18,6 +18,8 @@ spec:
       labels:
         app: {{ $name }}-app
     spec:
+      imagePullSecrets:
+        - name: registry-pull
       containers:
         - name: {{ $name }}-container
           image: {{ $value.imageName }}
