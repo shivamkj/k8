@@ -6,9 +6,11 @@ import subprocess
 import sys
 
 
-def create_secret(secrets):
-    command = ["kubectl", "create", "secret", "generic", name, "-n", namespace]
-    for key, value in secrets.items():
+def create_secret(secrets, namespace):
+    command = ["kubectl", "create", "secret", "generic", secrets["name"], "-n", namespace]
+    secret_type = secrets["type"] if "type" in secret else "Opaque"
+    command.append("--type={}".format(secret_type))
+    for key, value in secrets["data"].items():
         command.append("--from-literal={0}={1}".format(key, value))
     subprocess.run(command)
 
@@ -61,8 +63,8 @@ for secret in secrets:
             stderr=subprocess.PIPE,
         )
         if existing_secret.returncode != 0:
-            create_secret(secret["data"])
-            exit(0)
+            create_secret(secret, namespace)
+            continue
 
         # If secrets already exits then compare, delete previous one and replace with
         #  new one if changed else do nothing decode data
@@ -77,4 +79,4 @@ for secret in secrets:
         else:
             # Secret has changed, delete old one and replace it with new one
             subprocess.run(["kubectl", "delete", "secret", name, "-n", namespace, "--ignore-not-found"])
-            create_secret(passed_data)
+            create_secret(secret, namespace)

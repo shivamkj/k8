@@ -1,7 +1,7 @@
 applications:
   hello-k8:
     replicas: 1
-    host: k3-dev.shivamjha.com
+    host: k4-dev.shivamjha.com
     env:
       MESSAGE: "Hello from Helm - DEV Testing"
   # metabase:
