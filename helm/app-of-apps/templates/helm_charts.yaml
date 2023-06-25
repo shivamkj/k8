@@ -1,5 +1,5 @@
 {{ range $name, $value  := .Values.helmCharts }}
-{{ if $value.enabled }}
+{{ if not (eq $value.enabled false) }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -7,7 +7,7 @@ metadata:
   name: {{ $name }}
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $value.syncWave | quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | default 1 | quote }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -55,5 +55,8 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      {{ if $value.serverSideSyncPolicy }}
+      - ServerSideApply=true
+      {{ end }}
 {{ end }}
 {{ end }}

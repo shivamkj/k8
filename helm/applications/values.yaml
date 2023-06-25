@@ -11,7 +11,7 @@ global:
 
 applications:
   hello-k8:
-    imageName: "containers.shivamjha.com/private-container:0.0.2" # private copy of "paulbouwer/hello-kubernetes:1.10.1"
+    imageName: "paulbouwer/hello-kubernetes:1.10.1" # private repo: "containers.shivamjha.com/private-container:0.0.2"
     containerPort: 8080
     replicas: 2
     host: k3.shivamjha.com

@@ -1,0 +1,89 @@
+
+## Create default rules for monitoring the cluster
+defaultRules:
+  create: true
+  #   rules:
+  #     alertmanager: true
+  #     node: true
+  #     nodeExporterAlerting: true
+  #     nodeExporterRecording: true
+  #     kubePrometheusNodeRecording: true
+  #     prometheus: true
+  #     prometheusOperator: true
+  #     kubePrometheusGeneral: true
+  #     kubeStateMetrics: true
+  #     network: true
+  #     general: true
+  #     k8s: true
+  #     kubernetesApps: true
+  #     kubernetesResources: true
+  #     kubernetesStorage: true
+  #     kubernetesSystem: true
+  #     configReloaders: false
+  #     etcd: false
+  #     kubeApiserverAvailability: false
+  #     kubeApiserverBurnrate: false
+  #     kubeApiserverHistogram: false
+  #     kubeApiserverSlos: false
+  #     kubeControllerManager: false
+  #     kubelet: false
+  #     kubeProxy: false
+  #     kubeSchedulerAlerting: false
+  #     kubeSchedulerRecording: false
+
+  ## Labels for default rules
+  labels:
+    type: default-rules
+
+## Configuration for alertmanager: https://prometheus.io/docs/alerting/alertmanager/
+alertmanager:
+  enabled: true
+
+  ## Settings affecting alertmanagerSpec: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#alertmanagerspec
+  alertmanagerSpec:
+    logLevel: error
+
+## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+grafana:
+  enabled: true
+  defaultDashboardsTimezone: "UTC+05:30"
+  adminPassword: prom-operator
+  serviceMonitor:
+    # If true, a ServiceMonitor CRD is created for a prometheus operator: https://github.com/coreos/prometheus-operator
+    enabled: false
+
+## Flag to disable all the kubernetes component scrapers
+kubernetesServiceMonitors:
+  enabled: false
+
+## Component scraping kube state metrics
+kubeStateMetrics:
+  enabled: false
+
+## Deploy node exporter as a daemonset to all nodes
+nodeExporter:
+  enabled: true
+
+## Manages Prometheus and Alertmanager components
+prometheusOperator:
+  enabled: true
+  logLevel: error
+
+## Deploy a Prometheus instance
+prometheus:
+  enabled: true
+
+  ## Settings affecting prometheusSpec
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+  prometheusSpec:
+
+    ## Interval between consecutive scrapes: https://github.com/prometheus-operator/prometheus-operator/blob/release-0.44/pkg/prometheus/promcfg.go#L180-L183
+    scrapeInterval: "30s" # 30s is Default
+    ## How long to retain metrics
+    retention: 10d
+    ## Maximum size of metrics
+    retentionSize: ""
+    ## Log level for Prometheus be configured in
+    logLevel: error
+
+cleanPrometheusOperatorObjectNames: true

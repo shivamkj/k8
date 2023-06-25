@@ -19,16 +19,12 @@ helmCharts:
     valueFile:
       repoURL: "https://github.com/shivamkj/k8"
       path: "/helm/app-of-apps/values/cert_manager.yaml"
-    syncWave: 1
-    enabled: true
   ## https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
   ingress-nginx-helm:
     namespace: ingress-nginx
     chart: ingress-nginx
     repoURL: "https://kubernetes.github.io/ingress-nginx"
     version: "4.7.0"
-    enabled: true
-    syncWave: 2
   # https://artifacthub.io/packages/helm/haproxytech/kubernetes-ingress
   haproxy-helm:
     namespace: haproxy
@@ -39,16 +35,37 @@ helmCharts:
       repoURL: "https://github.com/shivamkj/k8"
       path: "/helm/app-of-apps/values/haproxy_ingress.yaml"
     enabled: false
-    syncWave: 2
+  # https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
+  prom-stack:
+    namespace: monitering
+    chart: kube-prometheus-stack
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    version: "47.0.0"
+    serverSideSyncPolicy: true
+    valueFile:
+      repoURL: "https://github.com/shivamkj/k8"
+      path: "/helm/app-of-apps/values/kube-prometheus-stack.yaml"
+  # https://artifacthub.io/packages/helm/prometheus-community/prometheus
+  prometheus:
+    namespace: monitering
+    chart: prometheus
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    version: "22.6.7"
+    enabled: false
+  # https://artifacthub.io/packages/helm/grafana/grafana
+  grafana:
+    namespace: monitering
+    chart: grafana
+    repoURL: "https://grafana.github.io/helm-charts"
+    version: "6.57.3"
+    enabled: false
   shared-config:
     namespace: shared
     path: "helm/shared"
     repoURL: "https://github.com/shivamkj/k8"
-    enabled: true
-    syncWave: 3
+    syncWave: 2
   applications:
     namespace: default
     path: "helm/applications"
     repoURL: "https://github.com/shivamkj/k8"
-    enabled: true
-    syncWave: 4
+    syncWave: 2
